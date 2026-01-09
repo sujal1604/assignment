@@ -1,0 +1,138 @@
+import datetime
+
+FILE_NAME = "fruits.txt"
+LOG_FILE = "transactions.log"
+
+
+# ---------------- LOG FUNCTION ----------------
+def log_transaction(message):
+    with open(LOG_FILE, "a") as log:
+        log.write(f"{datetime.datetime.now()} - {message}\n")
+
+
+# ---------------- LOAD FRUITS ----------------
+def load_fruits():
+    fruits = {}
+    try:
+        with open(FILE_NAME, "r") as file:
+            for line in file:
+                name, qty, price = line.strip().split(",")
+                fruits[name] = {"qty": int(qty), "price": float(price)}
+    except FileNotFoundError:
+        pass
+    return fruits
+
+
+# ---------------- SAVE FRUITS ----------------
+def save_fruits(fruits):
+    with open(FILE_NAME, "w") as file:
+        for name, data in fruits.items():
+            file.write(f"{name},{data['qty']},{data['price']}\n")
+
+
+# ---------------- ADD FRUIT ----------------
+def add_fruit():
+    fruits = load_fruits()
+    try:
+        name = input("Enter fruit name: ").strip().lower()
+        qty = int(input("Enter quantity: "))
+        price = float(input("Enter price: "))
+
+        fruits[name] = {"qty": qty, "price": price}
+        save_fruits(fruits)
+        log_transaction(f"Added fruit {name}")
+
+        print("Fruit added successfully!")
+
+    except ValueError:
+        print("Invalid input! Please enter correct values.")
+
+
+# ---------------- VIEW FRUITS ----------------
+def view_fruits():
+    fruits = load_fruits()
+
+    if not fruits:
+        print("No fruits available.")
+        return
+
+    print("\n----- Fruit Stock -----")
+    for name, data in fruits.items():
+        print(f"{name.title()} | Qty: {data['qty']} | Price: {data['price']}")
+
+
+# ---------------- UPDATE FRUIT ----------------
+def update_fruit():
+    fruits = load_fruits()
+    name = input("Enter fruit name to update: ").strip().lower()
+
+    if name not in fruits:
+        print("Fruit not found!")
+        return
+
+    try:
+        qty = int(input("Enter new quantity: "))
+        price = float(input("Enter new price: "))
+
+        fruits[name]["qty"] = qty
+        fruits[name]["price"] = price
+        save_fruits(fruits)
+        log_transaction(f"Updated fruit {name}")
+
+        print("Fruit updated successfully!")
+
+    except ValueError:
+        print("Invalid input! Try again.")
+
+
+# ---------------- CUSTOMER VIEW ----------------
+def customer_view():
+    fruits = load_fruits()
+
+    if not fruits:
+        print("No fruits available.")
+        return
+
+    print("\n----- Available Fruits -----")
+    for name, data in fruits.items():
+        print(f"{name.title()} | Price: {data['price']}")
+
+
+# ---------------- MENU ----------------
+def show_menu():
+    print("\n===== FRUIT STORE MENU =====")
+    print("1. Add Fruit Stock")
+    print("2. View Fruit Stock")
+    print("3. Update Fruit Stock")
+    print("4. Customer View")
+    print("5. Exit")
+
+
+# ---------------- MAIN FUNCTION ----------------
+def main():
+    while True:
+        try:
+            show_menu()
+            choice = input("Enter your choice: ").strip()
+
+            if choice == "1":
+                add_fruit()
+            elif choice == "2":
+                view_fruits()
+            elif choice == "3":
+                update_fruit()
+            elif choice == "4":
+                customer_view()
+            elif choice == "5":
+                print("Thank you for using Fruit Store!")
+                break
+            else:
+                print("Invalid choice! Please try again.")
+
+        except Exception:
+            print("Something went wrong! Returning to menu.")
+
+
+# ---------------- PROGRAM START ----------------
+if __name__ == "__main__":
+    main()
