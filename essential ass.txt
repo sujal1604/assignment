@@ -1,0 +1,136 @@
+# ================================
+# MODULE 7: ANALYZING DATA WITH PYTHON
+# ONE FILE SOLUTION
+# ================================
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+print("\n========== NUMPY QUESTIONS ==========\n")
+
+# Q1. Convert 1D array to 2D array with 2 rows
+a1 = np.array([1, 2, 3, 4, 5, 6])
+a2 = a1.reshape(2, -1)
+print("Q1 Output:\n", a2)
+
+# Q2. Get common items between two arrays
+a = np.array([1, 2, 3, 2, 3, 4, 3, 4, 5, 6])
+b = np.array([7, 2, 10, 2, 7, 4, 9, 4, 9, 8])
+common = np.intersect1d(a, b)
+print("\nQ2 Output:", common)
+
+# Q3. Get items between 5 and 10
+a = np.array([2, 6, 1, 9, 10, 3, 27])
+result = a[(a >= 5) & (a <= 10)]
+print("\nQ3 Output:", result)
+
+# Q4. Limit printed elements to 6
+np.set_printoptions(threshold=6)
+arr = np.arange(15)
+print("\nQ4 Output:", arr)
+
+# Reset print option
+np.set_printoptions(threshold=1000)
+
+
+print("\n========== PANDAS QUESTIONS ==========\n")
+
+# Q1. Min, 25%, Median, 75%, Max
+ser = pd.Series([10, 20, 30, 40, 50])
+print("Q1 Statistics:\n", ser.describe())
+
+# Q2 & Q3. Create DataFrame using NumPy
+data = np.array([[10, 20, 30],
+                 [40, 50, 60],
+                 [70, 80, 90],
+                 [15, 25, 35],
+                 [45, 55, 65]])
+df = pd.DataFrame(data)
+print("\nQ2 & Q3 DataFrame:\n", df)
+
+# Q4. Default labels
+print("\nQ4 Answer:")
+print("Columns → 0,1,2 | Rows → 0,1,2,3,4")
+
+# Q6. Number of rows and columns
+print("\nQ6 Rows & Columns:", df.shape)
+
+# Q7. First few rows
+print("\nQ7 First Rows:\n", df.head())
+
+# Q8. Single column return type
+print("\nQ8 Answer:")
+print("Type returned → Series")
+
+# Q9. Line plot
+x = [3, 4, 5, 6]
+y = [1.5, 2, 2.5, 3]
+plt.figure()
+plt.plot(x, y)
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Line Plot")
+plt.show()
+
+# Q10. Multiple plots
+x = np.arange(0, 6, 0.3)
+plt.figure()
+plt.plot(x, x**2, "ro", label="x²")
+plt.plot(x, x**3, "bs", label="x³")
+plt.plot(x, x**4, "g", label="x⁴")
+plt.axis([0, 6, 0, 125])
+plt.legend()
+plt.title("Multiple Line Plot")
+plt.show()
+
+# Q11. Bar plot
+height = [179, 155, 191, 152, 188, 177]
+names = ['QA', 'WB', 'EC', 'RD', 'TE', 'YF']
+plt.figure()
+plt.bar(names, height)
+plt.title("Height Comparison")
+plt.xlabel("Names")
+plt.ylabel("Height")
+plt.show()
+
+# Q12. Histogram
+x = np.random.randn(100000)
+plt.figure()
+plt.hist(x, bins=10)
+plt.title("Histogram (10 bins)")
+plt.show()
+
+plt.figure()
+plt.hist(x, bins=20)
+plt.title("Histogram (20 bins)")
+plt.show()
+
+plt.figure()
+plt.hist(x, bins=50)
+plt.title("Histogram (50 bins)")
+plt.show()
+
+
+print("\n========== THEORY QUESTIONS ==========\n")
+
+# Q13. Features of TensorFlow
+print("Q13 Features of TensorFlow:")
+print("- Open source")
+print("- Supports deep learning")
+print("- Runs on CPU and GPU")
+print("- Supports neural networks")
+print("- Large community support\n")
+
+# Q14. Limitations of TensorFlow
+print("Q14 Limitations of TensorFlow:")
+print("- Difficult to learn")
+print("- Debugging is complex")
+print("- Large memory usage\n")
+
+# Q15. Supervised vs Unsupervised Learning
+print("Q15 Supervised vs Unsupervised Learning:")
+print("Supervised Learning → Uses labeled data")
+print("Unsupervised Learning → Uses unlabeled data")
+
+print("\n========== END OF MODULE 7 ==========")
